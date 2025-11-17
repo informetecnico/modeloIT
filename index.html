@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -98,61 +101,174 @@
         }
         
         .accordion-content.open {
-            padding: 20px;
-            max-height: 500px;
+            padding: 0;
+            max-height: 800px;
         }
         
-        .json-input-container {
+        .tabs-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .tabs-header {
+            display: flex;
+            background: #f1f8ff;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab-button {
+            padding: 15px 25px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #555;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab-button:hover {
+            background: #e3f2fd;
+            color: #2980b9;
+        }
+        
+        .tab-button.active {
+            background: white;
+            color: #3498db;
+            border-bottom: 3px solid #3498db;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 25px;
+            background: white;
+            height: 100%;
+            overflow-y: auto;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .table-section {
+            background: white;
+            border-radius: 8px;
+            padding: 0;
+        }
+        
+        .table-section h4 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .editable-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .editable-table th,
+        .editable-table td {
+            border: 1px solid #e0e0e0;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .editable-table th {
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+            border-color: #2980b9;
+        }
+        
+        .editable-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .editable-table tr:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .editable-table input {
+            width: 100%;
+            border: none;
+            padding: 8px;
+            background: transparent;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+        
+        .editable-table input:focus {
+            outline: 2px solid #3498db;
+            background: white;
+            border-radius: 3px;
+        }
+        
+        .table-controls {
+            display: flex;
+            gap: 10px;
             margin-top: 15px;
         }
         
-        .json-input-container label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-        
-        .json-input {
-            width: 100%;
-            min-height: 120px;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            resize: vertical;
-            transition: border-color 0.3s ease;
-        }
-        
-        .json-input:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-        }
-        
-        .json-input.valid {
-            border-color: #27ae60;
-        }
-        
-        .json-input.invalid {
-            border-color: #e74c3c;
-        }
-        
-        .json-validation {
-            margin-top: 8px;
+        .btn-small {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
             font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 5px;
         }
         
-        .json-validation.valid {
-            color: #27ae60;
+        .btn-add {
+            background-color: #27ae60;
+            color: white;
         }
         
-        .json-validation.invalid {
-            color: #e74c3c;
+        .btn-add:hover {
+            background-color: #219653;
+            transform: translateY(-1px);
+        }
+        
+        .btn-remove {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .btn-remove:hover {
+            background-color: #c0392b;
+            transform: translateY(-1px);
+        }
+        
+        .json-preview {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 25px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            max-height: 250px;
+            overflow-y: auto;
+            line-height: 1.4;
+        }
+        
+        .json-preview h5 {
+            margin: 0 0 10px 0;
+            color: #ecf0f1;
+            font-size: 1rem;
         }
         
         .controls {
@@ -340,6 +456,18 @@
             .pdf-container {
                 min-height: 400px;
             }
+            
+            .tabs-header {
+                flex-direction: column;
+            }
+            
+            .tab-button {
+                justify-content: center;
+            }
+            
+            .tab-content {
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -357,31 +485,135 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                             <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM7 11.5a.5.5 0 0 1-1 0V6.707L5.354 7.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L7 6.707V11.5z"/>
                         </svg>
-                        Configuración de la API FastAPI
+                        Configuración de Parámetros
                     </h3>
                     <svg class="accordion-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                     </svg>
                 </div>
                 <div class="accordion-content" id="accordionContent">
-                    <p>Modifica el JSON que se enviará en la solicitud POST a la API:</p>
-                    
-                    <div class="json-input-container">
-                        <label for="jsonData">Datos JSON para enviar:</label>
-                        <textarea 
-                            id="jsonData" 
-                            class="json-input" 
-                            placeholder='{
-  "additionalProp1": {}
-}'>{
-  "additionalProp1": {}
-}</textarea>
-                        <div id="jsonValidation" class="json-validation">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                            </svg>
-                            JSON válido
+                    <div class="tabs-container">
+                        <div class="tabs-header">
+                            <button class="tab-button active" data-tab="parametros">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
+                                </svg>
+                                Parámetros
+                            </button>
+                            <button class="tab-button" data-tab="coordenadas">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                </svg>
+                                Coordenadas
+                            </button>
+ 
                         </div>
+                        
+                        <!-- Tab de Parámetros -->
+                        <div class="tab-content active" id="parametros-tab">
+                            <div class="table-section">
+                                <h4>Configuración de Parámetros</h4>
+                                <table class="editable-table" id="parametrosTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Parámetro</th>
+                                            <th>Valor</th>
+                                            <th>Unidad</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" value="Superficie total envolvente"></td>
+                                            <td><input type="text" value="1500"></td>
+                                            <td><input type="text" value="m²"></td>
+                                            <td>
+                                                <button class="btn-small btn-remove" onclick="removeRow(this)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" value="Superficie rehabilitada"></td>
+                                            <td><input type="text" value="600"></td>
+                                            <td><input type="text" value="m²"></td>
+                                            <td>
+                                                <button class="btn-small btn-remove" onclick="removeRow(this)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="table-controls">
+                                    <button class="btn-small btn-add" onclick="addRow('parametrosTable')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                        </svg>
+                                        Añadir Fila
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab de Coordenadas -->
+                        <div class="tab-content" id="coordenadas-tab">
+                            <div class="table-section">
+                                <h4>Configuración de Coordenadas</h4>
+                                <table class="editable-table" id="coordenadasTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Parámetro</th>
+                                            <th>Valor</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" value="lat"></td>
+                                            <td><input type="text" value="40"></td>
+                                            <td>
+                                                <button class="btn-small btn-remove" onclick="removeRow(this)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" value="lng"></td>
+                                            <td><input type="text" value="-3"></td>
+                                            <td>
+                                                <button class="btn-small btn-remove" onclick="removeRow(this)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="table-controls">
+                                    <button class="btn-small btn-add" onclick="addRow('coordenadasTable')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                        </svg>
+                                        Añadir Fila
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -451,12 +683,96 @@
         // Configurar pdf.js worker
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
+        // Funciones para manejar las tablas
+        function addRow(tableId) {
+            const table = document.getElementById(tableId);
+            const tbody = table.querySelector('tbody');
+            const newRow = document.createElement('tr');
+            
+            // Determinar número de columnas basado en la tabla
+            const colCount = tableId === 'parametrosTable' ? 4 : 3;
+            
+            for (let i = 0; i < colCount - 1; i++) {
+                const cell = document.createElement('td');
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = '';
+                input.addEventListener('input', updateJsonPreview);
+                cell.appendChild(input);
+                newRow.appendChild(cell);
+            }
+            
+            // Celda de acciones
+            const actionCell = document.createElement('td');
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'btn-small btn-remove';
+            removeBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                </svg>
+            `;
+            removeBtn.onclick = function() { removeRow(this); };
+            actionCell.appendChild(removeBtn);
+            newRow.appendChild(actionCell);
+            
+            tbody.appendChild(newRow);
+            updateJsonPreview();
+        }
+
+        function removeRow(button) {
+            const row = button.closest('tr');
+            row.remove();
+            updateJsonPreview();
+        }
+
+        function getTableData(tableId) {
+            const table = document.getElementById(tableId);
+            const rows = table.querySelectorAll('tbody tr');
+            const data = [];
+            
+            rows.forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                const rowData = Array.from(inputs).map(input => input.value);
+                data.push(rowData);
+            });
+            
+            return data;
+        }
+
+        function updateJsonPreview() {
+            const parametrosData = getTableData('parametrosTable');
+            const coordenadasData = getTableData('coordenadasTable');
+            
+            const jsonData = {
+                Parametros: parametrosData,
+                Coordenadas: coordenadasData
+            };
+            
+            document.getElementById('jsonPreview').textContent = JSON.stringify(jsonData, null, 2);
+        }
+
+        // Función para cambiar entre pestañas
+        function switchTab(tabName) {
+            // Ocultar todos los contenidos de pestañas
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Desactivar todos los botones de pestañas
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Activar la pestaña seleccionada
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const reloadPdfBtn = document.getElementById('reloadPdf');
             const downloadPdfBtn = document.getElementById('downloadPdf');
             const openWebsiteBtn = document.getElementById('openWebsite');
-            const jsonDataInput = document.getElementById('jsonData');
-            const jsonValidation = document.getElementById('jsonValidation');
             const accordionHeader = document.getElementById('accordionHeader');
             const accordionContent = document.getElementById('accordionContent');
             const accordionIcon = document.querySelector('.accordion-icon');
@@ -467,26 +783,33 @@
             
             let currentPdfBlob = null;
             let currentPdfDoc = null;
-            let currentJsonData = {
-                additionalProp1: {}
-            };
             let isAccordionOpen = false;
             let totalPages = 0;
             
             // URL de la API FastAPI
-            // const apiUrl = 'http://127.0.0.1:8000/__A/__A/__A00_a/f';
-            const apiUrl = 'https://doctec.duckdns.org/fast/__A/__A/__A00_a/f';
-            // const apiUrl = 'http://127.0.0.1:8000/A5_Medida_de_ahorro_energético/A52_Residencial/RES091_Hibridación_en_modo_paralelo_de_caldera_s_de_combustión_con_bomba_de_calor_de_accionamiento_eléctrico_en_edificios_residenciales_ubicados_en_la_zona_climática_B3_o_B4/f';
+            const apiUrl = 'http://127.0.0.1:8000/__A/__A/__A00_a/f';
             
             // Configurar acordeón
             accordionHeader.addEventListener('click', toggleAccordion);
             
-            // Validar JSON en tiempo real
-            jsonDataInput.addEventListener('input', validateJson);
+            // Configurar botones de pestañas
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    switchTab(tabName);
+                });
+            });
             
             // Configurar botón de abrir sitio web
             openWebsiteBtn.addEventListener('click', function() {
                 window.open('https://informetecnico.github.io/', '_blank');
+            });
+            
+            // Event listeners para actualizar el JSON cuando se modifiquen los inputs
+            document.addEventListener('input', function(e) {
+                if (e.target.tagName === 'INPUT') {
+                    updateJsonPreview();
+                }
             });
             
             // Cargar el PDF automáticamente al abrir la página
@@ -509,39 +832,15 @@
                 }
             }
             
-            function validateJson() {
-                try {
-                    const jsonText = jsonDataInput.value.trim();
-                    if (jsonText === '') {
-                        jsonDataInput.classList.remove('valid', 'invalid');
-                        jsonValidation.className = 'json-validation';
-                        jsonValidation.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> JSON válido';
-                        return true;
-                    }
-                    
-                    const parsedJson = JSON.parse(jsonText);
-                    currentJsonData = parsedJson;
-                    
-                    jsonDataInput.classList.remove('invalid');
-                    jsonDataInput.classList.add('valid');
-                    jsonValidation.className = 'json-validation valid';
-                    jsonValidation.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> JSON válido';
-                    return true;
-                } catch (error) {
-                    jsonDataInput.classList.remove('valid');
-                    jsonDataInput.classList.add('invalid');
-                    jsonValidation.className = 'json-validation invalid';
-                    jsonValidation.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg> Error en JSON: ${error.message}`;
-                    return false;
-                }
-            }
-            
             function fetchPdf() {
-                // Validar JSON antes de enviar
-                if (!validateJson()) {
-                    showStatus('Error: El JSON no es válido. Corrige los errores antes de enviar.', 'error');
-                    return;
-                }
+                // Obtener datos de las tablas
+                const parametrosData = getTableData('parametrosTable');
+                const coordenadasData = getTableData('coordenadasTable');
+                
+                const requestData = {
+                    Parametros: parametrosData,
+                    Coordenadas: coordenadasData
+                };
                 
                 // Mostrar indicador de carga
                 loadingIndicator.style.display = 'block';
@@ -556,7 +855,7 @@
                         'accept': 'application/json',
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(currentJsonData)
+                    body: JSON.stringify(requestData)
                 };
                 
                 // Realizar la solicitud a la API FastAPI
@@ -694,11 +993,10 @@
                 }, 5000);
             }
             
-            // Validar JSON inicial
-            validateJson();
+            // Inicializar vista previa del JSON
+            updateJsonPreview();
         });
     </script>
 </body>
 </html>
-
 
